@@ -3,9 +3,10 @@
  *
  * Uses SdrDevice (the same 6 MiB synchronous reads the app uses - it stops
  * cleanly, unlike a large raw rtlsdr_read_sync which wedges the Haiku USB stack
- * when interrupted). The MSC is decoded CONTINUOUSLY across reads (no per-read
- * reset, which otherwise throws away ~60% of the audio to byte-sync startup);
- * DabMsc's self-healing RS re-sync recovers from the small between-read gaps.
+ * when interrupted). The MSC is reset at every read and each 6 MiB read is
+ * decoded independently: carrying MSC state across the between-read gap never
+ * re-established RS byte sync (measured 0 RS), so per-read reset is the only
+ * mode that yields audio, at the cost of ~60% of it lost to per-read startup.
  * A large AudioSink ring (20 s) holds the audio the good reads produce so brief
  * bad reads do not break playback. The trade is continuity for delay, which is
  * what we want for broadcast audio.

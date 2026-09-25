@@ -1,1 +1,19 @@
 AGENTS.md
+
+# Build outputs. libbsac.a and objects/ differ per platform (see AGENTS.md 1).
+*.o
+*.a
+objects/
+objects.*/
+macos/R SDR.app/
+macos/R SDR.icns
+macos/R SDR.iconset/
+macos/msc_file
+macos/ts_probe
+macos/ca_probe
+macos/dab_live
+macos/air_probe
+macos/demod_file
+macos/make_icon
+macos/ts_descramble
+macos/tune_stress

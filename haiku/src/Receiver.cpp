@@ -39,6 +39,21 @@ DabProbeGains(const std::vector<int>& supported)
 	return gains;
 }
 
+// Same condition the Station menu uses to offer a service. FIGs arrive spread
+// over many FIBs, so a label can exist before FIG 0/2 links it to a TS
+// subchannel; until this holds the menu would be empty.
+static bool
+FicHasSelectableService(const DabFic& fic)
+{
+	const std::vector<DabFic::service>& svc = fic.Services();
+	for (size_t i = 0; i < svc.size(); i++) {
+		if (!svc[i].label.empty() && svc[i].type == 24
+			&& svc[i].subchannel >= 0)
+			return true;
+	}
+	return false;
+}
+
 Receiver::Receiver()
 	:
 	fDabSubchannel(-1),
@@ -609,12 +624,16 @@ Receiver::_DemodLoop()
 					fAppliedGain = dabGainBest;
 					dabGainSweepActive = false;
 					dabGainSweepJustFinished = true;
-				} else if (requestedSubchannel < 0) {
+				} else if (requestedSubchannel < 0
+					&& FicHasSelectableService(fDabFic)) {
 					// The Haiku UI deliberately keeps capture alive after discovery so
 					// Play can promote the same safe synchronous stream. Do no OFDM/MSC
 					// work while it is waiting for a Station selection.
 					continue;
 				}
+				// Otherwise the sweep winner's FIC was still incomplete (label seen,
+				// TS subchannel link not yet): keep decoding FIC at the chosen gain
+				// below until a selectable service appears, or Station stays empty.
 				// Each USB read is decoded on its own. Carrying the untracked tail
 				// across reads (as macOS _ProcessDab does) was measured to HURT here:
 				// Haiku's inter-read USB gap is large enough that prepended stale
@@ -684,10 +703,9 @@ Receiver::_DemodLoop()
 				int positions[DabSync::kSymbolsPerFrame];
 				size_t count = iq.size();
 				size_t searchFrom = 0;
-				// expectedNext continues frame tracking within this read; it restarts
-				// (-1) each read, and the carried tail (assigned at each break below,
-				// starting just before a null) makes the CIF stream contiguous across
-				// reads. Ported from the macOS _ProcessDab path.
+				// expectedNext continues frame tracking within this read and restarts
+				// (-1) each read. Nothing is carried across reads: the frame that
+				// straddles the read boundary is dropped (see the reset above).
 				int expectedNext = -1;
 				while (true) {
 					float fineHz = 0.0f;
