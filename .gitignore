@@ -17,3 +17,5 @@ macos/demod_file
 macos/make_icon
 macos/ts_descramble
 macos/tune_stress
+# cross-built binaries (pkgman-repo/scripts/cross-arm64.sh)
+dist/

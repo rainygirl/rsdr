@@ -26,6 +26,16 @@ cd haiku
 Applications 링크도 만들어져요. 최초 설치 후 Deskbar 링크가 나타나려면
 재부팅 한 번이 필요할 수 있어요.
 
+### arm64 (RENKU)
+
+arm64에서는 librtlsdr·libusb·FFmpeg를 함께 담아 미리 빌드한 패키지를
+pkgman.rainygirl.com에서 설치할 수 있습니다 (RENKU arm64 이미지에는 저장소가
+이미 등록돼 있습니다).
+
+```sh
+pkgman install rsdr
+```
+
 ## 사용법
 
 1. RTL2832U 호환 동글을 연결한 뒤 R SDR을 실행하세요.

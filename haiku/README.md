@@ -26,6 +26,16 @@ The app is installed at `/boot/home/config/non-packaged/apps/R SDR`. Desktop
 and Deskbar Applications links are also created. After the first installation,
 one reboot may be required before the Deskbar link appears.
 
+### arm64 (RENKU)
+
+On arm64 there is a ready-built package on pkgman.rainygirl.com, with
+librtlsdr, libusb and FFmpeg inside it (the RENKU arm64 image has the
+repository already):
+
+```sh
+pkgman install rsdr
+```
+
 ## Usage
 
 1. Connect an RTL2832U-compatible dongle before opening R SDR.
