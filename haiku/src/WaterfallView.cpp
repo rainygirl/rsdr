@@ -269,11 +269,31 @@ void
 WaterfallView::Draw(BRect updateRect)
 {
 	SetHighColor(6, 8, 24);
-	FillRect(Bounds());
-	if (fBitmap == NULL || !fHasData)
+	if (fBitmap == NULL || !fHasData) {
+		FillRect(Bounds());
 		return;
-	DrawBitmap(fBitmap, BPoint(Bounds().left + SpectrumView::AxisWidth(),
-		Bounds().top));
+	}
+
+	// The waterfall bitmap covers everything but the axis strip, so filling the
+	// whole view first and drawing over it is nearly all wasted. On a 1.33 GHz
+	// Atom a full-view FillRect of this size costs several milliseconds, and it
+	// happens on every incoming row.
+	BRect bounds = Bounds();
+	BPoint at(bounds.left + SpectrumView::AxisWidth(), bounds.top);
+	BRect covered(at.x, at.y, at.x + fBitmap->Bounds().Width(),
+		at.y + fBitmap->Bounds().Height());
+	BRect around[4] = {
+		BRect(bounds.left, bounds.top, covered.left - 1, bounds.bottom),
+		BRect(covered.right + 1, bounds.top, bounds.right, bounds.bottom),
+		BRect(covered.left, bounds.top, covered.right, covered.top - 1),
+		BRect(covered.left, covered.bottom + 1, covered.right, bounds.bottom),
+	};
+	for (int i = 0; i < 4; i++) {
+		BRect part = around[i] & updateRect;
+		if (part.IsValid())
+			FillRect(part);
+	}
+	DrawBitmap(fBitmap, at);
 
 	if (fHovering && fSpanHz > 0) {
 		BRect plot = Bounds();
