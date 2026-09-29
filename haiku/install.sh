@@ -44,12 +44,15 @@ DESKBAR_APPS_DIR=/boot/system/non-packaged/data/deskbar/menu/Applications
 mkdir -p "$APP_DIR" "$DESKBAR_APPS_DIR" /boot/home/Desktop
 cp -f "$BINARY" "$INSTALLED_APP"
 
-# Tracker reads the icon from the file's attributes, not from the resources the
-# linker wrote into the binary. mimeset is supposed to copy one to the other,
-# but on recent Haiku it no longer sniffs ELF files, so a freshly built app gets
-# a blank document icon. resattr does the copy directly.
+# Tracker draws a blank document icon unless two attributes are right, and cp
+# sets neither: recent Haiku no longer sniffs ELF files, so the copy inherits
+# BEOS:TYPE "application/octet-stream" and carries no BEOS:ICON at all. resattr
+# copies the icon out of the binary's own resources, and BEOS:TYPE has to say
+# this is an executable.
 resattr -O -o "$INSTALLED_APP" "$INSTALLED_APP" 2>/dev/null \
 	|| echo "install.sh: resattr failed; the icon may show as a blank document" >&2
+addattr -t mime BEOS:TYPE application/x-vnd.be-elfexecutable "$INSTALLED_APP" \
+	2>/dev/null || true
 
 DESKBAR_LINK="$DESKBAR_APPS_DIR/R SDR"
 if [ "$(readlink "$DESKBAR_LINK" 2>/dev/null)" != "$INSTALLED_APP" ]; then
