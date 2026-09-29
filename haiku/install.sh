@@ -44,6 +44,13 @@ DESKBAR_APPS_DIR=/boot/system/non-packaged/data/deskbar/menu/Applications
 mkdir -p "$APP_DIR" "$DESKBAR_APPS_DIR" /boot/home/Desktop
 cp -f "$BINARY" "$INSTALLED_APP"
 
+# Tracker reads the icon from the file's attributes, not from the resources the
+# linker wrote into the binary. mimeset is supposed to copy one to the other,
+# but on recent Haiku it no longer sniffs ELF files, so a freshly built app gets
+# a blank document icon. resattr does the copy directly.
+resattr -O -o "$INSTALLED_APP" "$INSTALLED_APP" 2>/dev/null \
+	|| echo "install.sh: resattr failed; the icon may show as a blank document" >&2
+
 DESKBAR_LINK="$DESKBAR_APPS_DIR/R SDR"
 if [ "$(readlink "$DESKBAR_LINK" 2>/dev/null)" != "$INSTALLED_APP" ]; then
 	ln -sf "$INSTALLED_APP" "$DESKBAR_LINK"
