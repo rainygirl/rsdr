@@ -2,11 +2,11 @@
 #
 # The DSP and DAB sources live in ../common and are built by both targets from
 # that one place. macos/src goes first on the include path so its SupportDefs.h
-# and OS.h shims stand in for Haiku's, which is all those files need from the
+# and OS.h shims stand in for RenkuOS's, which is all those files need from the
 # BeAPI - they are otherwise plain C++.
 #
 # What is *not* shared is everything that touches the operating system. The
-# Haiku app's SdrDevice, AudioSink, Receiver and windows are BeAPI; the macOS
+# RenkuOS app's SdrDevice, AudioSink, Receiver and windows are BeAPI; the macOS
 # target has its own device and CoreAudio layers under macos/src.
 #
 #   make            offline tools (no dongle, no audio hardware needed)
@@ -17,7 +17,7 @@ CXX ?= clang++
 CXXFLAGS ?= -O2 -std=c++11 -Wall -Wno-unused-function -Isrc -I$(COMMON) \
 	-I../third_party/bsac
 
-# The shared core keeps its portable FFT for Haiku.  macOS selects a
+# The shared core keeps its portable FFT for RenkuOS.  macOS selects a
 # thread-local Accelerate/vDSP backend without changing the DSP API.
 DSP_ACCEL_CFLAGS = -DRSDR_USE_ACCELERATE=1
 DSP_ACCEL_LIBS = -framework Accelerate
@@ -27,7 +27,7 @@ RTL_CFLAGS := -I$(BREW)/include
 RTL_LIBS := -L$(BREW)/lib -lrtlsdr
 IOKIT := -framework IOKit -framework CoreFoundation
 
-# Portable core, byte for byte the same files the Haiku app builds.
+# Portable core, byte for byte the same files the RenkuOS app builds.
 CORE = $(COMMON)/Dsp.cpp \
 	$(COMMON)/Demodulator.cpp \
 	$(COMMON)/DabSync.cpp \
@@ -49,12 +49,12 @@ ICON = R\ SDR.icns
 all: msc_file demod_file air_probe ts_probe ca_probe ts_descramble dab_live app
 
 # Offline T-DMB decode, and the regression test for the DAB chain. Identical
-# source to the Haiku one, so a capture decoded here and there must agree -
+# source to the RenkuOS one, so a capture decoded here and there must agree -
 # verified: both report RS 70 of 70 blocks on the same capture.
-msc_file: ../haiku/test/msc_file.cpp $(CORE)
+msc_file: ../renkuos/test/msc_file.cpp $(CORE)
 	$(CXX) $(CXXFLAGS) $(DSP_ACCEL_CFLAGS) -o $@ $^ -lm $(DSP_ACCEL_LIBS)
 
-demod_file: ../haiku/test/demod_file.cpp $(COMMON)/Demodulator.cpp \
+demod_file: ../renkuos/test/demod_file.cpp $(COMMON)/Demodulator.cpp \
 		$(COMMON)/Dsp.cpp
 	$(CXX) $(CXXFLAGS) $(DSP_ACCEL_CFLAGS) -o $@ $^ -lm $(DSP_ACCEL_LIBS)
 
@@ -95,7 +95,7 @@ air_probe: src/air_probe.cpp $(COMMON)/AirBands.cpp $(COMMON)/AirMonitor.cpp \
 # rule that produces "R SDR.app". librtlsdr and libusb are copied inside and
 # their load paths rewritten, so the app runs on a Mac without Homebrew.
 # The icon is rendered from the same isometric geometry and palette as the
-# Haiku one - see src/make_icon.mm. HVIF cannot be converted, so the shape is
+# RenkuOS one - see src/make_icon.mm. HVIF cannot be converted, so the shape is
 # rebuilt rather than translated.
 make_icon: src/make_icon.mm
 	$(CXX) -O2 -std=c++11 -o $@ $^ -framework Foundation \

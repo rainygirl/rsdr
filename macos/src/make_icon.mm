@@ -1,7 +1,7 @@
 /*
- * Renders the macOS icon from the same geometry as the Haiku one.
+ * Renders the macOS icon from the same geometry as the RenkuOS one.
  *
- * haiku/tools/make_icon.py emits HVIF, which macOS cannot read, so the shape
+ * renkuos/tools/make_icon.py emits HVIF, which macOS cannot read, so the shape
  * is rebuilt here rather than converted: identical isometric projection,
  * identical palette, identical order of faces. Keeping the numbers in step is
  * the whole point - the two apps should not look like cousins.
@@ -99,7 +99,7 @@ void fill(CGContextRef ctx, int style, const std::vector<P>& pts, double scale)
 void draw(CGContextRef ctx, double scale)
 {
 	// Black ground. macOS draws app icons on whatever the user's wallpaper is,
-	// and the silver cabinet loses its edges against a light one - the Haiku
+	// and the silver cabinet loses its edges against a light one - the RenkuOS
 	// desktop has a fixed grey behind it, so the HVIF can afford transparency
 	// and this cannot. Rounded rather than square because that is the platform
 	// convention; the radius is the ~22% Big Sur uses.

@@ -1,10 +1,10 @@
 /*
- * CoreAudio output with the same rate control the Haiku sink needed.
+ * CoreAudio output with the same rate control the RenkuOS sink needed.
  *
  * The dongle's clock and the sound card's clock are not the same, and the USB
  * path loses a little on top of that. No buffer size fixes a steady rate
  * difference - it only changes how long the ring takes to run dry, which on
- * Haiku showed up as the audio breaking up every two seconds and, when the
+ * RenkuOS showed up as the audio breaking up every two seconds and, when the
  * ring was doubled, every four. So the reader runs at a fractional rate
  * steered by how full the ring is; correcting a one percent shortfall means
  * playing one percent slow, which is eight cents of pitch and inaudible.

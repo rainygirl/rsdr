@@ -1,7 +1,7 @@
 # Standalone offline tools. No BeAPI, no sound card, no dongle - they run the
 # same Demodulator/Dsp code the app uses over a captured I/Q file.
 #
-# Build on Haiku with the same secondary architecture as the app:
+# Build on RenkuOS with the same secondary architecture as the app:
 #   setarch x86 make -C test
 CXX ?= g++
 CXXFLAGS ?= -O2 -std=c++11 -ffast-math -msse2 -mfpmath=sse -Wall -I../src -I../../common

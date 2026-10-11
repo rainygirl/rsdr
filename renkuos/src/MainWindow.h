@@ -65,7 +65,7 @@ private:
 			DmbVideoView*	fDmbVideo;
 			SignalGauge*	fSignalGauge;
 			BCardLayout*	fDisplayLayout;
-	// The card holding the waterfall/video. Hidden in T-DMB: Haiku decodes
+	// The card holding the waterfall/video. Hidden in T-DMB: RenkuOS decodes
 	// audio only (no H.264), so the video card was a permanent black
 	// "Waiting for T-DMB signal..." box with nothing to show.
 			BView*			fDisplay;

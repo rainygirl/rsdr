@@ -1,12 +1,12 @@
-# <img src="../icon.png" alt="" width="28" align="top"> R SDR for Haiku
+# <img src="../icon.png" alt="" width="28" align="top"> R SDR for RenkuOS
 
 *[한국어](README.ko.md) · [Documentation index](../README.md)*
 
-![R SDR running on Haiku](screenshot.png)
+![R SDR running on RenkuOS](screenshot.png)
 
 ## Installation
 
-R SDR targets the `x86` secondary architecture on Haiku x86_gcc2. Install the
+R SDR targets the `x86` secondary architecture on RenkuOS x86_gcc2. Install the
 RTL-SDR runtime and development packages:
 
 ```sh
@@ -18,7 +18,7 @@ installer:
 
 ```sh
 setarch x86 make -C third_party/bsac
-cd haiku
+cd renkuos
 ./install.sh
 ```
 
@@ -47,13 +47,13 @@ pkgman install rsdr
    reception. Click the spectrum or waterfall to tune to that frequency.
 5. For T-DMB, select an on-air T-DMB preset and wait while automatic gain
    detection finishes. The Station list may take about 11 seconds or longer to
-   appear. Select a station, then press Play. The Haiku build plays T-DMB audio.
+   appear. Select a station, then press Play. The RenkuOS build plays T-DMB audio.
 
 Below 28.8 MHz, the app automatically switches to Q-branch direct sampling.
 Reception in this range requires a dongle whose Q input is connected to the
 antenna or exposed as a separate HF input.
 
-If USB reception stops, stop playback and reconnect the dongle. If the Haiku
+If USB reception stops, stop playback and reconnect the dongle. If the RenkuOS
 USB bulk endpoint remains unresponsive, physically unplug and reconnect it
 before starting playback again.
 

@@ -1,6 +1,6 @@
 /*
  * Everything this measures is about one question: how should the app read
- * from the dongle on Haiku, given that both obvious answers are broken?
+ * from the dongle on RenkuOS, given that both obvious answers are broken?
  *
  *   rtlsdr_read_async()  delivers samples beautifully - 0.0045% lost - but it
  *                        can only be stopped with rtlsdr_cancel_async(), and

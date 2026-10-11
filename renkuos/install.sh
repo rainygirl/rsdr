@@ -1,6 +1,6 @@
 #!/bin/sh
 # Builds R SDR and installs it into Deskbar's Applications menu. Run on
-# Haiku, from anywhere:
+# RenkuOS, from anywhere:
 #   ./install.sh
 #
 # The build MUST go through the "x86" secondary architecture: librtlsdr is

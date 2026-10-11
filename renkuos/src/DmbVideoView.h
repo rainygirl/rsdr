@@ -10,7 +10,7 @@
 
 class BBitmap;
 
-// Software H.264 presentation for Haiku.  The receiver produces bursts of
+// Software H.264 presentation for RenkuOS.  The receiver produces bursts of
 // length-prefixed access units; a private worker decodes them so the BeAPI UI
 // and, more importantly, the USB capture thread never wait for FFmpeg.
 class DmbVideoView : public BView {

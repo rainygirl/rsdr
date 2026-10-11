@@ -1,5 +1,5 @@
 /*
- * Stand-in for Haiku's <OS.h> on macOS.
+ * Stand-in for RenkuOS's <OS.h> on macOS.
  *
  * Only DabProbe includes it, and only for system_time(); everything else it
  * would provide (threads, semaphores, ports) belongs to the BeAPI layers that

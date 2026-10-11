@@ -71,7 +71,7 @@ public:
 	//
 	// Past the budget the nominal position is used. On a bad signal that
 	// degrades the output rather than degrading it *and* burning the CPU.
-	// Haiku Atom quality/speed tradeoff: one expensive timing search per
+	// RenkuOS Atom quality/speed tradeoff: one expensive timing search per
 	// frame is enough to follow the dominant USB drop. Remaining symbols use
 	// the nominal grid, keeping the front-end closer to real time.
 	static const int kSearchesPerFrame = 1;

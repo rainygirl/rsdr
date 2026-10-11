@@ -66,7 +66,7 @@ Receiver::Receiver()
 	fFrequency(92500000ULL),
 	fFineTune(0.0f),
 	fGain(kDefaultGainTenths),
-	// The Haiku R820T2 was measured 84 ppm slow on the connected dongle.
+	// The RenkuOS R820T2 was measured 84 ppm slow on the connected dongle.
 	// Apply the correction by default; macOS keeps its independent 0 ppm
 	// default because the two devices have different crystals.
 	fPpm(-84),
@@ -498,7 +498,7 @@ Receiver::_DemodLoop()
 				fDabQuality = -1.0f;
 				fDmbVideoConfig.clear();
 				fDmbVideoUnits.clear();
-				// Haiku's Atom cannot sustain H.264 decode alongside the DAB
+				// RenkuOS's Atom cannot sustain H.264 decode alongside the DAB
 				// front-end. Start in audio-first mode and retain only one still
 				// access unit; this also prevents a long-running video queue from
 				// growing or exercising the fragile decoder repeatedly.
@@ -626,7 +626,7 @@ Receiver::_DemodLoop()
 					dabGainSweepJustFinished = true;
 				} else if (requestedSubchannel < 0
 					&& FicHasSelectableService(fDabFic)) {
-					// The Haiku UI deliberately keeps capture alive after discovery so
+					// The RenkuOS UI deliberately keeps capture alive after discovery so
 					// Play can promote the same safe synchronous stream. Do no OFDM/MSC
 					// work while it is waiting for a Station selection.
 					continue;

@@ -7,7 +7,7 @@
 #include "DabFic.h"
 #include "DabMsc.h"
 
-// Headless Haiku smoke test for the real mYTN path.  It uses the same
+// Headless RenkuOS smoke test for the real mYTN path.  It uses the same
 // synchronous SdrDevice and shared DabSync/DabFic code as the GUI, but does
 // not require a BWindow or a manually selected station.
 int main(int argc, char** argv)

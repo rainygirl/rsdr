@@ -1,7 +1,7 @@
 /*
  * R SDR for macOS - Cocoa front end over the shared DSP core.
  *
- * Everything below the UI is the same code the Haiku app runs: Demodulator and
+ * Everything below the UI is the same code the RenkuOS app runs: Demodulator and
  * Dsp out of ../common, compiled unchanged. Only the three things that are
  * genuinely operating-system shaped are written twice - the dongle layer
  * (RtlDevice here, SdrDevice there), the audio sink (CoreAudio here,
@@ -139,7 +139,7 @@ public:
 		mode_plan plan = PlanForMode(fMode);
 		fDevice.RequestSampleRate(plan.tunerSampleRate);
 		// Do not bake one dongle's measured correction into the application.
-		// -84 ppm was right for the Haiku test receiver at 92.5 MHz, but on
+		// -84 ppm was right for the RenkuOS test receiver at 92.5 MHz, but on
 		// the Mac live DAB path it produced FIB 0/2520 despite tracking 15/15
 		// frames.  Zero keeps acquisition usable until correction is measured
 		// for the particular receiver connected here.

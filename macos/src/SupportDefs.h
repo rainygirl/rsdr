@@ -1,5 +1,5 @@
 /*
- * Just enough of Haiku's <SupportDefs.h> and <OS.h> for the portable half of
+ * Just enough of RenkuOS's <SupportDefs.h> and <OS.h> for the portable half of
  * this project to compile on macOS.
  *
  * The DSP and DAB code (Dsp, Demodulator, DabSync, DabFic, DabMsc, DabTables,
@@ -7,7 +7,7 @@
  * Rather than edit every one of those files - which would mean maintaining two
  * versions of code whose correctness took a long time to establish - this
  * header is put first on the include path for the macOS build, so the sources
- * are shared byte for byte with the Haiku app.
+ * are shared byte for byte with the RenkuOS app.
  *
  * Nothing here emulates the BeAPI. The parts of the app that genuinely need it
  * - BWindow, BSoundPlayer, BLocker - are not built on macOS; the macOS target

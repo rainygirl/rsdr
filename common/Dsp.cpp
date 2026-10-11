@@ -242,7 +242,7 @@ bool gSineReady = false;
 
 #if defined(__APPLE__) && defined(RSDR_USE_ACCELERATE)
 
-// Keep the portable radix-2 implementation below for Haiku, but let macOS
+// Keep the portable radix-2 implementation below for RenkuOS, but let macOS
 // use the FFT implementation tuned for the current Apple CPU.  A split
 // buffer is retained per DSP thread: DAB decoding and the UI spectrum can
 // call Fft() concurrently, and neither should allocate for every symbol.

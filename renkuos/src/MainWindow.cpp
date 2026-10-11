@@ -230,7 +230,7 @@ MainWindow::_BuildLayout()
 	fSignalGauge = new SignalGauge("signal gauge");
 	BView* analogDisplay = new BView("analog display", B_WILL_DRAW);
 	BLayoutBuilder::Group<>(analogDisplay, B_VERTICAL, 1)
-		// Haiku's Atom is CPU-bound during reception; keep the waterfall as
+		// RenkuOS's Atom is CPU-bound during reception; keep the waterfall as
 		// the sole analogue display.  The spectrum object remains headless so
 		// it can maintain the dB range used to colour the waterfall.
 		.Add(fWaterfall, 1.0f);
@@ -340,7 +340,7 @@ MainWindow::_SelectMode(demod_mode mode, bool beginDmbProbe)
 	bool leavingDmb = mode != kModeDMB && fMode == kModeDMB;
 	fMode = mode;
 	fReceiver.SetMode(mode);
-	// The connected Haiku dongle needs -84 ppm for analogue FM calibration,
+	// The connected RenkuOS dongle needs -84 ppm for analogue FM calibration,
 	// but real 8B DAB measurements are the opposite: -84 gives OFDM lock with
 	// FIB 0/72, while 0 ppm gives FIB 12/12 and a complete station list on the
 	// first analysis.  Keep the independently measured correction per path.
@@ -395,7 +395,7 @@ MainWindow::_UpdateControlsForMode()
 		|| fMode == kModeLSB || fMode == kModeUSB;
 	fSquelchSlider->SetEnabled(squelchUseful);
 	if (fMode == kModeDMB) {
-		// Haiku decodes T-DMB audio only (no H.264), so the video card was a
+		// RenkuOS decodes T-DMB audio only (no H.264), so the video card was a
 		// permanent black "Waiting for T-DMB signal..." box. Hide the whole
 		// display area; the ensemble line and Station menu carry the state.
 		fDmbVideo->Reset();
@@ -665,7 +665,7 @@ MainWindow::_Tick()
 	if (fSignalGauge != NULL)
 		fSignalGauge->SetQuality(
 			snap.mode == kModeDMB ? snap.dabQuality : -1.0f, snap.signalDb);
-	// Haiku's Atom cannot decode H.264 alongside the OFDM/MSC chain. Do not
+	// RenkuOS's Atom cannot decode H.264 alongside the OFDM/MSC chain. Do not
 	// wake the video decoder even for a still frame; the whole core is reserved
 	// for the supported ER-BSAC audio path.
 

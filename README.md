@@ -3,7 +3,7 @@
 R SDR is a simple receiver for the AM, FM, SW, Air, and T-DMB bands. For full
 SDR functionality, use [CubicSDR](https://cubicsdr.com).
 
-- [Haiku — installation and usage](haiku/README.md)
+- [RenkuOS — installation and usage](renkuos/README.md)
 - [macOS — installation and usage](macos/README.md)
-- [Haiku — 설치 및 사용법 (한국어)](haiku/README.ko.md)
+- [RenkuOS — 설치 및 사용법 (한국어)](renkuos/README.ko.md)
 - [macOS — 설치 및 사용법 (한국어)](macos/README.ko.md)

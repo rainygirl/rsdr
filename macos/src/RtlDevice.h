@@ -1,18 +1,18 @@
 /*
  * RTL-SDR capture for macOS.
  *
- * Same shape as the Haiku SdrDevice - a capture thread doing synchronous
+ * Same shape as the RenkuOS SdrDevice - a capture thread doing synchronous
  * reads, a small pool of blocks, and control changes applied between two reads
  * - but on pthreads instead of the BeAPI.
  *
- * The synchronous choice is not carried over blindly. On Haiku it is forced:
+ * The synchronous choice is not carried over blindly. On RenkuOS it is forced:
  * rtlsdr_cancel_async() crashes that USB stack and a control transfer cannot
  * get through while bulk transfers are queued. libusb on macOS has neither
  * problem, so async would be fine here. Synchronous is kept anyway because it
- * is the same code path the Haiku app uses, which means a bug found on one is
+ * is the same code path the RenkuOS app uses, which means a bug found on one is
  * a bug found on both - and because the measurement that matters carried over:
  * the per-read overhead is real on any host, so the transfer has to be long
- * enough to dilute it. See kNarrowBlockBytes in the Haiku SdrDevice.h for the
+ * enough to dilute it. See kNarrowBlockBytes in the RenkuOS SdrDevice.h for the
  * numbers behind that.
  */
 #ifndef RSDR_MACOS_RTL_DEVICE_H
